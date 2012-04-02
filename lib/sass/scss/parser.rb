@@ -122,7 +122,7 @@ module Sass
       end
 
       DIRECTIVES = Set[:mixin, :include, :function, :return, :debug, :warn, :for,
-        :each, :while, :if, :else, :extend, :import, :media, :charset, :content,
+        :each, :while, :if, :else, :unless, :extend, :import, :media, :charset, :content,
         :_moz_document]
 
       PREFIXED_DIRECTIVES = Set[:supports]
@@ -249,6 +249,23 @@ module Sass
 
       def if_directive
         expr = sass_script(:parse)
+        ss
+        node = block(node(Sass::Tree::IfNode.new(expr)), :directive)
+        pos = @scanner.pos
+        line = @line
+        ss
+
+        else_block(node) ||
+          begin
+            # Backtrack in case there are any comments we want to parse
+            @scanner.pos = pos
+            @line = line
+            node
+          end
+      end
+      
+      def unless_directive
+        expr = Sass::Script::UnaryOperation.new(sass_script(:parse).dup, :not)
         ss
         node = block(node(Sass::Tree::IfNode.new(expr)), :directive)
         pos = @scanner.pos

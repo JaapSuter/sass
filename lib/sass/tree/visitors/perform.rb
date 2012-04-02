@@ -187,21 +187,31 @@ END
         raise Sass::SyntaxError.new("Mixin #{node.name} doesn't have an argument named $#{name}")
       end
     end
-
+    
+    environment_caller = Sass::Environment.new(@environment)
+    
     environment = mixin.args.zip(passed_args).
       inject(Sass::Environment.new(mixin.environment)) do |env, ((var, default), value)|
-      env.set_local_var(var.name,
-        if value
-          value.perform(@environment)
-        elsif kv = passed_keywords[var.underscored_name]
-          kv.perform(@environment)
-        elsif default
-          default.perform(env)
-        end)
+      v = if value
+        value.perform(@environment)          
+      elsif kv = passed_keywords[var.underscored_name]
+        kv.perform(@environment)
+      elsif default
+        default.perform(env)
+      end
+      env.set_local_var(var.name, v)
+      environment_caller.set_local_var(var.name, v.dup)
       raise Sass::SyntaxError.new("Mixin #{node.name} is missing parameter #{var.inspect}.") unless env.var(var.name)
       env
     end
-    environment.caller = Sass::Environment.new(@environment)
+    
+    # Todo, Jaap Suter, March 2012, change...
+    # p "visit_mixin(@environment.var): #{@environment.vars}"
+    # p "visit_mixin(environment.var): #{environment.vars}"
+    # p "visit_mixin(environment_caller.var): #{environment_caller.vars}"
+    # p "visit_mixin(environment_caller.parent.var): #{environment_caller.parent.vars}"
+    
+    environment.caller = environment_caller
     environment.content = node.children if node.has_children
 
     trace_node = Sass::Tree::TraceNode.from_node(node.name, node)
@@ -219,6 +229,12 @@ END
 
   def visit_content(node)
     raise Sass::SyntaxError.new("No @content passed.") unless content = @environment.content
+    
+    # Todo, Jaap Suter, March 2012, change...
+    # p "visit_content(@environment.vars): #{@environment.vars}"
+    # p "visit_content(@environment.parent.vars): #{@environment.parent.vars}"
+    # p "visit_content(@environment.caller.var): #{@environment.caller.vars}"
+    
     @stack.push(:filename => node.filename, :line => node.line, :name => '@content')
     trace_node = Sass::Tree::TraceNode.from_node('@content', node)
     with_environment(@environment.caller) {trace_node.children = content.map {|c| visit(c.dup)}.flatten}

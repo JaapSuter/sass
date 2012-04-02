@@ -65,6 +65,9 @@ module Sass
           def #{name}(name)
             _#{name}(name.tr(UNDERSCORE, DASH))
           end
+          
+          # Todo, Jaap Suter, March 2012, change...
+          attr_reader :vars
 
           def _#{name}(name)
             (@#{name}s && @#{name}s[name]) || @parent && @parent._#{name}(name)

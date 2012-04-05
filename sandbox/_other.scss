@@ -1,0 +1,11 @@
+// @debug $imports;
+// $imports: append($imports, other);
+// @mixin other {
+
+.foobar {
+  color: pink;
+}
+
+// }
+
+// @include responsify {

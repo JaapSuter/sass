@@ -92,7 +92,11 @@ class Sass::Tree::Visitors::CheckNesting < Sass::Tree::Visitors::Base
   ]
   def invalid_import_parent?(parent, child)
     if is_any_of?(@real_parent, VALID_IMPORT_PARENTS)
-      return "Import directives may not be used within control directives or mixins."
+      # Todo, Jaap Suter, April 2012, this is an extremely ugly hack. Admitting that does not make
+      ## it ok, I realize that. But hey, it's 2:21 am... :-)'
+      unless @real_parent.kind_of? Sass::Tree::MixinNode and @real_parent.name == "responsify"
+        return "Import directives may not be used within control directives or mixins."
+      end
     end
     return if parent.is_a?(Sass::Tree::RootNode)
     return "CSS import directives may only be used at the root of a document." if child.css_import?

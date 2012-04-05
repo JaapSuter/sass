@@ -1,0 +1,9 @@
+GEM
+  specs:
+    facets (2.9.3)
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  facets

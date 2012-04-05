@@ -17,10 +17,17 @@ module Sass
       # @see #to_s
       def render
         Visitors::CheckNesting.visit(self)
+        # Visitors::Log.visit(self, "Before Perform")
         result = Visitors::Perform.visit(self)
-        Visitors::CheckNesting.visit(result) # Check again to validate mixins
+        # Visitors::Log.visit(result, "After Perform")
+        Visitors::CheckNesting.visit(result) # Check again to validate mixins        
+        
         result, extends = Visitors::Cssize.visit(result)
+        # Visitors::Log.visit(result, "After Cssize")
         result = result.do_extend(extends) unless extends.empty?
+        
+        Visitors::Responsify.visit(result)
+        
         result.to_s
       end
     end

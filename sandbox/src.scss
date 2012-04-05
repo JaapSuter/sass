@@ -1,0 +1,78 @@
+$min-width: undefined;
+$max-width: undefined;
+$ppem: 16;
+$pprem: 16;
+$ppgd: 24;
+
+@mixin respond($property, $value) {
+  @if respond($property, $value) {
+    @content;
+  }
+}
+
+@mixin responsify {
+  $call: respond_to(_all, true);
+  @media _all {
+    @content;
+  }
+
+  $call: respond_to(_none, false);
+  @media _none {
+    @content;
+  }
+
+  @each $max-width in get-responsive-values(max-width) {
+    $call: respond_to(max-width, $max-width);
+    @media (max-width: $max-width) {
+      @content;
+    }
+  }
+
+  @each $min-width in get-responsive-values(min-width) {
+    $call: respond_to(min-width, $min-width);
+    @media (min-width: $min-width) {
+      @content;
+    }
+  }
+}
+
+// $imports: ();
+// $imports: append($imports, foobar);
+// @debug $imports;
+// $import: "other";
+// @import #{unquote($import)};
+// @debug $imports;
+
+@include responsify {
+
+  $pprem: 16; $ppgd: 24;
+
+  @include respond(max-width, 330) { $pprem: 16; $ppgd: 22; }
+  @include respond(max-width, 440) { $pprem: 16; $ppgd: 23; }
+  @include respond(max-width, 550) { $pprem: 16; $ppgd: 24; }
+
+  @include respond(min-width,  720) { $pprem: 16; $ppgd: 24; }
+  @include respond(min-width,  780) { $pprem: 16; $ppgd: 25; }
+  @include respond(min-width,  825) { $pprem: 17; $ppgd: 25; }
+  @include respond(min-width,  884) { $pprem: 17; $ppgd: 26; }
+  @include respond(min-width,  936) { $pprem: 18; $ppgd: 27; }
+  @include respond(min-width, 1026) { $pprem: 19; $ppgd: 28; }
+  @include respond(min-width, 1092) { $pprem: 20; $ppgd: 29; }
+  @include respond(min-width, 1160) { $pprem: 20; $ppgd: 30; }
+  @include respond(min-width, 1260) { $pprem: 20; $ppgd: 31; }
+  @include respond(min-width, 1344) { $pprem: 21; $ppgd: 32; }
+  @include respond(min-width, 1408) { $pprem: 22; $ppgd: 33; }
+  @include respond(min-width, 1504) { $pprem: 22; $ppgd: 34; }
+
+  body {
+    font-size: $pprem * 1px;
+    line-height: $ppgd * 1px;
+
+    // @include respond(max-width, 400) { color: red; }
+    // @include respond(min-width, 900) { color: blue; }
+  }
+
+  @import "other";
+}
+
+.blaarg { }

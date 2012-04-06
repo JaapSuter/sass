@@ -1,8 +1,11 @@
 $min-width: undefined;
 $max-width: undefined;
-$ppem: 16;
+
+$pp-uam: 16;
+$pp-bem: 16;
 $pprem: 16;
 $ppgd: 24;
+$ppem: 16;
 
 @mixin respond($property, $value) {
   @if respond($property, $value) {
@@ -49,9 +52,9 @@ $ppgd: 24;
 
   @include respond(max-width, 330) { $pprem: 16; $ppgd: 22; }
   @include respond(max-width, 440) { $pprem: 16; $ppgd: 23; }
-  @include respond(max-width, 550) { $pprem: 16; $ppgd: 24; }
 
-  @include respond(min-width,  720) { $pprem: 16; $ppgd: 24; }
+  @include respond(min-width, 1504) { $pprem: 22; $ppgd: 34; }
+  @include respond(min-width, 1408) { $pprem: 22; $ppgd: 33; }
   @include respond(min-width,  780) { $pprem: 16; $ppgd: 25; }
   @include respond(min-width,  825) { $pprem: 17; $ppgd: 25; }
   @include respond(min-width,  884) { $pprem: 17; $ppgd: 26; }
@@ -61,16 +64,17 @@ $ppgd: 24;
   @include respond(min-width, 1160) { $pprem: 20; $ppgd: 30; }
   @include respond(min-width, 1260) { $pprem: 20; $ppgd: 31; }
   @include respond(min-width, 1344) { $pprem: 21; $ppgd: 32; }
-  @include respond(min-width, 1408) { $pprem: 22; $ppgd: 33; }
-  @include respond(min-width, 1504) { $pprem: 22; $ppgd: 34; }
 
-  body {
+
+  body, body .foo, body#bar {
     font-size: $pprem * 1px;
-    line-height: $ppgd * 1px;
+    line-height: $ppgd / $pprem * 1em;
 
-    // @include respond(max-width, 400) { color: red; }
-    // @include respond(min-width, 900) { color: blue; }
+    @include respond(max-width, 400) { color: red; }
+    @include respond(min-width, 900) { color: blue; }
   }
+
+  .bar { color: red; }
 
   @import "other";
 }

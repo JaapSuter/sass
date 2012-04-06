@@ -1,51 +1,88 @@
-body {
+body, body .foo, body#bar {
   font-size: 16px;
-  line-height: 24px; }
+  line-height: 1.5em; }
+
+.bar {
+  color: red; }
 
 .foobar {
+  font-size: 64px;
   color: pink; }
 
+body {
+  margin: 0 auto; }
+
 @media (max-width: 440) {
-  body {
-    line-height: 23px; } }
+  body, body .foo, body#bar {
+    line-height: 1.438em; } }
+@media (max-width: 400) {
+  body, body .foo, body#bar {
+    line-height: 1.5em;
+    color: red; } }
 @media (max-width: 330) {
-  body {
-    line-height: 22px; } }
+  body, body .foo, body#bar {
+    line-height: 1.375em; } }
 @media (min-width: 780) {
-  body {
-    line-height: 25px; } }
+  body, body .foo, body#bar {
+    line-height: 1.563em; } }
 @media (min-width: 825) {
-  body {
-    font-size: 17px; } }
+  body, body .foo, body#bar {
+    font-size: 17px;
+    line-height: 1.471em; }
+
+  .foobar {
+    font-size: 68px; } }
 @media (min-width: 884) {
-  body {
-    line-height: 26px; } }
+  body, body .foo, body#bar {
+    line-height: 1.529em; } }
+@media (min-width: 900) {
+  body, body .foo, body#bar {
+    font-size: 16px;
+    line-height: 1.5em;
+    color: blue; }
+
+  .foobar {
+    font-size: 64px; } }
 @media (min-width: 936) {
-  body {
-    font-size: 18px;
-    line-height: 27px; } }
+  body, body .foo, body#bar {
+    font-size: 18px; }
+
+  .foobar {
+    font-size: 72px; } }
 @media (min-width: 1026) {
-  body {
+  body, body .foo, body#bar {
     font-size: 19px;
-    line-height: 28px; } }
+    line-height: 1.474em; }
+
+  .foobar {
+    font-size: 76px; } }
 @media (min-width: 1092) {
-  body {
+  body, body .foo, body#bar {
     font-size: 20px;
-    line-height: 29px; } }
+    line-height: 1.45em; }
+
+  .foobar {
+    font-size: 80px; } }
 @media (min-width: 1160) {
-  body {
-    line-height: 30px; } }
+  body, body .foo, body#bar {
+    line-height: 1.5em; } }
 @media (min-width: 1260) {
-  body {
-    line-height: 31px; } }
+  body, body .foo, body#bar {
+    line-height: 1.55em; } }
 @media (min-width: 1344) {
-  body {
+  body, body .foo, body#bar {
     font-size: 21px;
-    line-height: 32px; } }
+    line-height: 1.524em; }
+
+  .foobar {
+    font-size: 84px; } }
 @media (min-width: 1408) {
-  body {
+  body, body .foo, body#bar {
     font-size: 22px;
-    line-height: 33px; } }
+    line-height: 1.5em; }
+
+  .foobar {
+    font-size: 88px; } }
 @media (min-width: 1504) {
-  body {
-    line-height: 34px; } }
+  body, body .foo, body#bar {
+    line-height: 1.545em; } }

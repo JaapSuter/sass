@@ -3,7 +3,12 @@
 // @mixin other {
 
 .foobar {
+  font-size: $pprem * 4 * 1px;
   color: pink;
+}
+
+body {
+  margin: 0 auto;
 }
 
 // }

@@ -148,6 +148,7 @@ that make use of `@media` and other directives dynamically.
 * Support the [`@supports` directive](http://www.w3.org/TR/css3-conditional/#at-supports).
 * Fix a performance issue when using `/*! */` comments with the Rails asset
   pipeline.
+* Support `-moz-element`.
 
 ## 3.1.15
 

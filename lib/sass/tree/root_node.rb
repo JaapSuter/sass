@@ -21,6 +21,7 @@ module Sass
         Visitors::CheckNesting.visit(result) # Check again to validate mixins
         result, extends = Visitors::Cssize.visit(result)
         result = result.do_extend(extends) unless extends.empty?
+        result = ::Jaap::SassExt::post_process result
         result.to_s
       end
     end

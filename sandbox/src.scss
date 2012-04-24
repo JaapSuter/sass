@@ -1,43 +1,4 @@
-$min-width: undefined;
-$max-width: undefined;
 
-$pp-uam: 16;
-$pp-bem: 16;
-$pprem: 16;
-$ppgd: 24;
-$ppem: 16;
-
-@mixin respond($property, $value) {
-  @if respond($property, $value) {
-    @content;
-  }
-}
-
-@mixin responsify {
-  $call: respond_to(_all, true);
-  @media _all {
-    @content;
-  }
-
-  $call: respond_to(_none, false);
-  @media _none {
-    @content;
-  }
-
-  @each $max-width in get-responsive-values(max-width) {
-    $call: respond_to(max-width, $max-width);
-    @media (max-width: $max-width) {
-      @content;
-    }
-  }
-
-  @each $min-width in get-responsive-values(min-width) {
-    $call: respond_to(min-width, $min-width);
-    @media (min-width: $min-width) {
-      @content;
-    }
-  }
-}
 
 // $imports: ();
 // $imports: append($imports, foobar);
